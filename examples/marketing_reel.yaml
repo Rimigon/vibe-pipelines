@@ -1,0 +1,34 @@
+# Marketing reel — declarative YAML form (for the CLI / non-coders).
+# Run:  vibe run examples/marketing_reel.yaml --budget 300
+budget_rub: 480
+
+steps:
+  - id: poster
+    type: image
+    model: seedream-5-pro
+    prompt: "баннер салона красоты, неон, крупный текст"
+    params:
+      aspect_ratio: "1:1"
+      quality: high
+      output_format: png
+
+  - id: jingle
+    type: music
+    model: suno-v5.5-instrumental
+    prompt: "upbeat pop-джингл для салона красоты, 15 секунд"
+    params:
+      music_style: pop
+      style_tags: "upbeat, light"
+
+  - id: clip
+    type: video
+    model: seedance-2-mini
+    prompt: "Кинематографичный кадр: камера медленно наезжает на светящийся неоновый баннер салона красоты, мягкое мерцание огней, тёмный фон с бликами, глубина резкости, плавное движение, атмосферное освещение"
+    inputs:
+      source_image: "${poster}" # → first_frame_url via mapper
+    after:
+      - poster
+    params:
+      duration: 4
+      aspect_ratio: "9:16"
+      resolution: 480p
