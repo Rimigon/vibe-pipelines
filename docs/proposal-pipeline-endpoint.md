@@ -39,7 +39,7 @@ refunds. Промежуточный файл может протухнуть, п
 POST /api/agent/pipeline
 Authorization: Bearer oc_...
 {
-  "budget_rub": 300,
+  "budget_rub": 480,
   "idempotency_key": "camp_42",
   "callback_url": "https://my.host/pipeline-webhook",
   "steps": [
@@ -47,11 +47,11 @@ Authorization: Bearer oc_...
      "prompt": "баннер салона красоты", "params": {"aspect_ratio": "1:1"}},
     {"id": "jingle", "type": "music", "model": "suno-v5.5-instrumental",
      "prompt": "upbeat pop-джингл, 15 сек"},
-    {"id": "clip", "type": "video", "model": "seedance-2-fast",
+    {"id": "clip", "type": "video", "model": "seedance-2-mini",
      "prompt": "зум на баннер",
      "inputs": {"source_image": {"from_step": "poster"}},
      "after": ["poster"],
-     "params": {"duration": 5, "aspect_ratio": "9:16"}}
+     "params": {"duration": 4, "aspect_ratio": "9:16", "resolution": "480p"}}
   ]
 }
 ```
@@ -62,8 +62,8 @@ Authorization: Bearer oc_...
 {
   "status": "processing",
   "pipeline_id": 9001,
-  "estimated_cost_rub": 238,
-  "balance_after": 262,
+  "estimated_cost_rub": 195,
+  "balance_after": 305,
   "status_url": "/api/agent/pipeline/9001"
 }
 ```
@@ -95,11 +95,11 @@ Authorization: Bearer oc_...
   "status": "complete",
   "pipeline_id": 9001,
   "steps": {
-    "poster": {"status": "complete", "display_url": "https://.../9001/poster?sig=..", "cost": 19},
+    "poster": {"status": "complete", "display_url": "https://.../9001/poster?sig=..", "cost": 40},
     "jingle": {"status": "complete", "display_url": "https://.../9001/jingle?sig=..", "cost": 99},
-    "clip":   {"status": "complete", "display_url": "https://.../9001/clip?sig=..",   "cost": 120}
+    "clip":   {"status": "complete", "display_url": "https://.../9001/clip?sig=..",   "cost": 56}
   },
-  "cost": 238, "refunded": 0, "net_cost": 238
+  "cost": 195, "refunded": 0, "net_cost": 195
 }
 ```
 
@@ -122,7 +122,7 @@ Authorization: Bearer oc_...
 ## Что уже доказывает референс-реализация (`vibe-pipelines`)
 
 - **UX работает сегодня.** Декларативный DAG, логические входы, бюджетный шлюз,
-  resume, вебхуки — всё поверх существующего API, 36 тестов на моках из доки.
+  resume, вебхуки — всё поверх существующего API, 38 тестов на моках из доки.
 - **Спрос подтверждён паттерном.** Вся «боль» (footgun, протухание URL, ручной
   поллинг, ручной подсчёт сметы) задокументирована в самом API — значит, платформа
   уже видит эти ошибки у пользователей.

@@ -1,5 +1,5 @@
 # Marketing reel — declarative YAML form (for the CLI / non-coders).
-# Run:  vibe run examples/marketing_reel.yaml --budget 300
+# Run:  vibe run examples/marketing_reel.yaml
 budget_rub: 480
 
 steps:

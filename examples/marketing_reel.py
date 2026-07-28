@@ -11,7 +11,7 @@ and the mapper picks the right physical field per model.
 Run:
     VIBE_TOKEN=oc_... python -m examples.marketing_reel
 or:
-    vibe run examples/marketing_reel.yaml --budget 300
+    vibe run examples/marketing_reel.yaml
 """
 
 from __future__ import annotations

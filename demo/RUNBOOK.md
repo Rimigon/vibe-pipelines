@@ -3,7 +3,7 @@
 В этом репозитории код писался по документации, тесты — на моках (ничего не
 тратят). Чтобы получить реальный результат и ссылки на файлы, прогон делает
 владелец аккаунта на своём балансе. Промокод **HH500** даёт 500 ₽ — демо
-укладывается в ~300 ₽.
+укладывается в ~200 ₽ (реальный прогон — 195 ₽).
 
 ## 1. Подготовка (один раз)
 
@@ -33,14 +33,14 @@ export VIBE_TOKEN=oc_...        # ваш ключ
 vibe estimate examples/marketing_reel.yaml
 ```
 
-Ожидаемо: poster (SeeDream 5 Pro) + jingle (Suno V5.5) + clip (Seedance 2 Fast,
-5с) ≈ 238 ₽. Если смета > вашего остатка — поднимите `budget_rub` или
+Ожидаемо: poster (SeeDream 5 Pro) + jingle (Suno V5.5) + clip (Seedance 2 Mini,
+4с, 480p) ≈ 195 ₽. Если смета > вашего остатка — поднимите `budget_rub` или
 понизьте `duration`/тир.
 
 ## 4. Живой прогон
 
 ```bash
-vibe run examples/marketing_reel.yaml --budget 300
+vibe run examples/marketing_reel.yaml
 ```
 
 Что произойдёт (по шагам, с трассировкой в `vibe-run.jsonl`):
@@ -57,7 +57,7 @@ vibe run examples/marketing_reel.yaml --budget 300
 ## 5. Проверка устойчивости
 
 - **Упало посередине?** Перезапустите с тем же `run_id` (он в выводе):
-  `vibe run examples/marketing_reel.yaml --budget 300 --run-id <id>`.
+  `vibe run examples/marketing_reel.yaml --run-id <id>`.
   Завершённые шаги пропустятся, in-flight переполнятся, деньги не спишутся
   дважды (идемпотентность).
 - **Превышение бюджета?** Поставьте `budget_rub: 10` — получите

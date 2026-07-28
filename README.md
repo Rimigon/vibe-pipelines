@@ -54,7 +54,7 @@
 
 **Решение:** перед запуском весь сценарий прогоняется через бесплатный
 `/generate/estimate`. Если сумма > `budget_rub` — `BudgetExceeded` с
-посleshным breakdown и **ни одного вызова `/generate`**. Во время выполнения
+пошаговым breakdown и **ни одного вызова `/generate`**. Во время выполнения
 учитывается *net*-spend (gross − refunded). См. `vibe/budget.py`,
 `test_budget_gate_blocks_run_before_any_charge`.
 
@@ -105,17 +105,17 @@ import asyncio
 from vibe import Pipeline, Step, VibeClient
 
 async def main():
-    p = Pipeline(budget_rub=300)
+    p = Pipeline(budget_rub=480)
 
     poster = Step(id="poster", type="image", model="seedream-5-pro",
                   prompt="баннер салона красоты, неон",
                   params={"aspect_ratio": "1:1", "quality": "high"})
     jingle = Step(id="jingle", type="music", model="suno-v5.5-instrumental",
                   prompt="upbeat pop-джингл, 15 сек")
-    clip = Step(id="clip", type="video", model="seedance-2-fast",
-                prompt="зум на баннер, мерцание неона",
+    clip = Step(id="clip", type="video", model="seedance-2-mini",
+                prompt="камера медленно наезжает на светящийся неоновый баннер",
                 inputs={"source_image": "${poster}"},          # ← логический вход
-                params={"duration": 5, "aspect_ratio": "9:16"}).depends_on("poster")
+                params={"duration": 4, "aspect_ratio": "9:16", "resolution": "480p"}).depends_on("poster")
 
     p.add(poster, jingle, clip)
     async with VibeClient(VIBE_TOKEN) as client:
@@ -129,7 +129,7 @@ asyncio.run(main())
 ## CLI (для маркетологов — без кода)
 
 ```bash
-vibe run examples/marketing_reel.yaml --budget 300
+vibe run examples/marketing_reel.yaml
 vibe estimate examples/marketing_reel.yaml   # смета без списания
 vibe models --type video                      # каталог, сортировка по цене
 vibe balance
@@ -138,7 +138,7 @@ vibe balance
 ## Тесты
 
 ```bash
-pytest -q        # 36 тестов, моки из документации, ничего не тратит
+pytest -q        # 38 тестов, моки из документации, ничего не тратит
 ```
 
 Тесты покрывают: маппинг полей под все видео-семейства (footgun-киллер),
@@ -167,7 +167,7 @@ docs/
   api-review.md                    # мнение про API (ответ на вопрос №2 из вакансии)
 examples/  marketing_reel.{py,yaml}
 demo/      RUNBOOK.md              # как прогнать живьём на балансе HH500
-tests/     36 тестов
+tests/     38 тестов
 ```
 
 ## Продуктовое предложение
