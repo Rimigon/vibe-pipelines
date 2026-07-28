@@ -1,0 +1,11 @@
+{
+  "include": ["vibe", "tests"],
+  "extraPaths": ["."],
+  "venvPath": "C:/Users/nikit/AppData/Local/hermes/hermes-agent",
+  "venv": "venv",
+  "pythonVersion": "3.10",
+  "reportMissingImports": "warning",
+  "reportMissingModuleSource": "none",
+  "reportGeneralTypeIssues": "warning",
+  "typeCheckingMode": "standard"
+}

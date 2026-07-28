@@ -1,0 +1,26 @@
+[project]
+name = "vibe-pipelines"
+version = "0.1.0"
+description = "Resilient multi-model generation pipelines over the VibeMarketolog Agent API"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Nikita" }]
+dependencies = ["httpx>=0.27", "typer>=0.12", "pydantic>=2.6"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23", "respx>=0.21"]
+
+[project.scripts]
+vibe = "vibe.cli:app"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["vibe*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
